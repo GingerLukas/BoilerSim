@@ -1,9 +1,23 @@
+using System.Collections.Generic;
+
 namespace BoilerSim.Models;
 
-public class Pump : IWaterProvider
+public class Pump : WaterSimNode
 {
-    public decimal GetSupply()
+    public override decimal CurrentVolume
     {
-        throw new System.NotImplementedException();
+        get { return 1000000; }
+        set { }
+    }
+
+    public override decimal CurrentTemp
+    {
+        get { return 10; }
+        set { }
+    }
+
+    public override void DedicateStep()
+    {
+        base.DedicateStep();
     }
 }
