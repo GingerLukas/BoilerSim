@@ -7,6 +7,49 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="3*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StackPanel Name="PumpsContainer">
 
+            </StackPanel>
+            <Grid Grid.Column="1" Name="BoilerContainer">
+
+            </Grid>
+            <StackPanel Grid.Column="2" Name="ValvesContainer">
+
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <!-- elapsed time-->
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <!--sim controls-->
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <!--empty-->
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock Name="SimElapsed"></TextBlock>
+            <Grid Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Button Name="ButtonSimStop" Click="ButtonSimStop_OnClick" IsEnabled="False">Stop</Button>
+                <Button Grid.Column="1" Name="ButtonSimPlay" Click="ButtonSimPlay_OnClick">Play</Button>
+                <Slider Grid.Column="2" Name="SliderSimSpeed" Minimum="1" Maximum="10000" ValueChanged="SliderSimSpeed_OnValueChanged"></Slider>
+                <TextBlock Grid.Column="3" Name="TextSimSpeed"></TextBlock>
+            </Grid>
+            
+        </Grid>
     </Grid>
 </Window>
