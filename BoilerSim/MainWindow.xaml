@@ -17,14 +17,14 @@
                 <ColumnDefinition Width="3*"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <StackPanel Name="PumpsContainer">
+            <StackPanel Name="BoilerStatusContainer">
 
             </StackPanel>
             <Grid Grid.Column="1" Name="BoilerContainer">
 
             </Grid>
             <StackPanel Grid.Column="2" Name="ValvesContainer">
-
+                
             </StackPanel>
         </Grid>
         <Grid Grid.Row="1">

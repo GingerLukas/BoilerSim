@@ -13,6 +13,14 @@ public class MixingValve : WaterSimNode
     public decimal MinTemp => decimal.Min(Providers[0].CurrentTemp, Providers[1].CurrentTemp);
     public decimal MaxTemp => decimal.Max(Providers[0].CurrentTemp, Providers[1].CurrentTemp);
 
+    public decimal MinVolume { get; set; }
+    public decimal MaxVolume { get; set; }
+
+    public MixingValve(decimal minVolume, decimal maxVolume)
+    {
+        MinVolume = minVolume;
+        MaxVolume = maxVolume;
+    }
 
     public override void RequestStep()
     {

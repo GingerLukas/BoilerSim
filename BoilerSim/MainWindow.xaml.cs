@@ -24,7 +24,6 @@ namespace BoilerSim
     public partial class MainWindow : Window
     {
         private Simulator _simulator;
-        private PumpControl _pumpControl;
         private BoilerControl _boilerControl;
         private MixingValveControl _valveControlShower;
         private MixingValveControl _valveControlSink;
@@ -32,6 +31,7 @@ namespace BoilerSim
 
         private bool _simEnabled = false;
         private int _stepsPerUpdate = 0;
+        private readonly BoilerStatusControl _boilerStatusControl;
 
         public MainWindow()
         {
@@ -49,11 +49,11 @@ namespace BoilerSim
             boiler.HeatingPower = 4000;
             boiler.AddProvider(pump);
 
-            MixingValve shower = new MixingValve();
+            MixingValve shower = new MixingValve(0, 30);
             shower.AddProvider(boiler);
             shower.AddProvider(pump);
 
-            MixingValve sink = new MixingValve();
+            MixingValve sink = new MixingValve(0, 15);
             sink.AddProvider(boiler);
             sink.AddProvider(pump);
 
@@ -64,16 +64,18 @@ namespace BoilerSim
             _simulator.AddNode(shower);
             _simulator.AddNode(sink);
 
-            _pumpControl = new PumpControl(pump);
-            PumpsContainer.Children.Add(_pumpControl);
+            _boilerStatusControl = new BoilerStatusControl(boiler);
+            BoilerStatusContainer.Children.Add(_boilerStatusControl);
             _boilerControl = new BoilerControl(boiler);
             BoilerContainer.Children.Add(_boilerControl);
-            _valveControlShower = new MixingValveControl(shower);
+            _valveControlShower = new MixingValveControl(shower, "Shower");
             ValvesContainer.Children.Add(_valveControlShower);
-            _valveControlSink = new MixingValveControl(sink);
+            ValvesContainer.Children.Add(new Rectangle() { Height = 50 });
+            _valveControlSink = new MixingValveControl(sink, "Sink");
             ValvesContainer.Children.Add(_valveControlSink);
 
-
+            UpdateUi();
+            
             UpdateTimer.Start();
         }
 
@@ -90,17 +92,19 @@ namespace BoilerSim
                     }
                 }
 
-                Dispatcher.Invoke(() =>
-                {
-                    _pumpControl.Update();
-                    _boilerControl.Update();
-                    _valveControlShower.Update();
-                    _valveControlSink.Update();
-
-                    SimElapsed.Text = _simulator.GetTime().ToString();
-                    TextSimSpeed.Text = $"{_stepsPerUpdate}x";
-                });
+                Dispatcher.Invoke(UpdateUi);
             }
+        }
+
+        private void UpdateUi()
+        {
+            _boilerStatusControl.Update();
+            _boilerControl.Update();
+            _valveControlShower.Update();
+            _valveControlSink.Update();
+
+            SimElapsed.Text = _simulator.GetTime().ToString();
+            TextSimSpeed.Text = $"{_stepsPerUpdate}x";
         }
 
         private void SliderSimSpeed_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)

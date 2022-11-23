@@ -73,7 +73,7 @@ public abstract class WaterSimNode
         {
             consumer.RequestStep();
         }
-        
+
 
         if (Providers.Count != 0)
         {
@@ -108,11 +108,20 @@ public abstract class WaterSimNode
 
         if (Consumers.Count != 0)
         {
-            decimal multiplier = VolumeRequestTotal == 0 ? 0 : DedicatedVolume / VolumeRequestTotal;
+            decimal multiplier;
+            try
+            {
+                multiplier = VolumeRequestTotal == 0 ? 0 : DedicatedVolume / VolumeRequestTotal;
+            }
+            catch (OverflowException e)
+            {
+                multiplier = decimal.MaxValue;
+            }
+
             multiplier = Math.Min(multiplier, 1);
 
             //dedicate to all consumers
-            foreach (KeyValuePair<WaterSimNode,decimal> request in VolumeRequests)
+            foreach (KeyValuePair<WaterSimNode, decimal> request in VolumeRequests)
             {
                 request.Key.DedicateVolume(multiplier * request.Value, CurrentTemp);
             }
@@ -151,6 +160,7 @@ public abstract class WaterSimNode
         {
             return;
         }
+
         VolumeSupplies.Add((temp, decimal.Min(volume, Volume)));
         DedicatedVolume += volume;
     }
@@ -161,6 +171,7 @@ public abstract class WaterSimNode
         {
             return;
         }
+
         VolumeRequests.Add(consumer, volume);
         VolumeRequestTotal += volume;
     }

@@ -82,6 +82,6 @@ public class Boiler : WaterSimNode
 
     private void RecalculateVolume()
     {
-        Volume = 2 * (decimal)Math.PI * (_diameter / 2) * (_diameter / 2) * _height;
+        Volume = (decimal)Math.PI * (_diameter / 2) * (_diameter / 2) * _height;
     }
 }

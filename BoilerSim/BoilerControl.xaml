@@ -12,10 +12,10 @@
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid>
-            <Rectangle Fill="Blue"></Rectangle>
+            <Rectangle Fill="Blue" Name="WaterLevel"></Rectangle>
         </Grid>
         <StackPanel Grid.Row="1">
-            <TextBlock Name="TemperatureBLock"></TextBlock>
+            <TextBlock Name="TemperatureBlock"></TextBlock>
             <TextBlock Name="VolumeBlock"></TextBlock>
         </StackPanel>
     </Grid>

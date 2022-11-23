@@ -16,8 +16,10 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
-            <StackPanel>
+            <TextBlock Name="ValveName"></TextBlock>
+            <StackPanel Grid.Row="1">
                 <TextBlock>Target temperature</TextBlock>
                 <Slider Name="TempSlider"></Slider>
                 <Grid>
@@ -33,9 +35,21 @@
                     <TextBlock Grid.Column="4" Name="TextMaxTemp"></TextBlock>
                 </Grid>
             </StackPanel>
-            <StackPanel Grid.Row="1">
+            <StackPanel Grid.Row="2">
                 <TextBlock>Target volume</TextBlock>
-                <Slider Name="VolumeSlider" Maximum="15" Minimum="0"></Slider>
+                <Slider Name="VolumeSlider"></Slider>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Name="TextMinVolume"></TextBlock>
+                    <TextBlock Grid.Column="2" Name="TextTargetVolume"></TextBlock>
+                    <TextBlock Grid.Column="4" Name="TextMaxVolume"></TextBlock>
+                </Grid>
             </StackPanel>
         </Grid>
     </Grid>
